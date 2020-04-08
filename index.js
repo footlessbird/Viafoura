@@ -1,13 +1,3 @@
-let kvs = {};
-
-const cmdInfo = `Type one of commands (e.g. add)
-            - add
-            - remove
-            - get
-            
-            ctrl + c // exit app
-`;
-
 const readline = require("readline");
 const rl = readline.createInterface({
   input: process.stdin,
@@ -15,79 +5,32 @@ const rl = readline.createInterface({
   prompt: "> kvs.",
 });
 
+const kvs = {};
+const { enterKeyValue, getAndRemove } = require("./helper")(rl, kvs);
+
+const cmdInfo = `Type one of commands (e.g. add)
+    
+    - add
+    - remove
+    - get
+
+    ctrl + c // exit app
+`;
+
 console.log(cmdInfo);
 rl.prompt();
 rl.on("line", (line) => {
   const keyList = Object.keys(kvs).join();
   switch (line.trim().toLowerCase()) {
     case "add":
-      rl.question("Please enter key> ", (key) => {
-        key = key.trim();
-        if (key.length !== 0) {
-          kvs[key] = "";
-          console.log(`You've entered "${key}"`);
-        } else {
-          console.log("Nothing entered..");
-          return;
-        }
-
-        rl.question("Please enter value> ", (value) => {
-          kvs[key] = value;
-          console.log(`You've entered "${value}"`);
-          console.log(kvs);
-        });
-      });
+      enterKeyValue(null, null);
       break;
     case "remove":
-      console.log(keyList.length);
-      if (keyList.length !== 0) {
-        rl.question(
-          `You can remove following key(s) 👉 ${keyList}
-        Please enter key to remove> `,
-          (key) => {
-            delete kvs[key];
-            if (key) {
-              if (keyList.includes(key)) {
-                console.log("Successfully removed");
-              } else {
-                console.log("No such key found");
-                return;
-              }
-            } else {
-              console.log(`No key entered, nothing removed `);
-            }
-            console.log(kvs);
-          }
-        );
-      } else {
-        console.log("No data to remove");
-      }
+      getAndRemove(keyList, line);
       break;
 
     case "get":
-      console.log(keyList.length);
-      if (keyList.length !== 0) {
-        rl.question(
-          `You can get data from following key(s) 👉 ${keyList}
-          Please enter key> `,
-          (key) => {
-            if (key) {
-              if (keyList.includes(key)) {
-                console.log(`${key} has ${kvs[key]}`);
-              } else {
-                console.log("No such key found");
-                return;
-              }
-            } else {
-              console.log("No key entered");
-              return;
-            }
-            console.log(kvs);
-          }
-        );
-      } else {
-        console.log("No data to get");
-      }
+      getAndRemove(keyList, line);
       break;
 
     default:
