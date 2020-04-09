@@ -2,6 +2,7 @@
 
 # snapshots test directory 
 /__snapshots__
+.snap
 
 # dependencies
 */node_modules
