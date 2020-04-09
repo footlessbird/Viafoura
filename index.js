@@ -25,6 +25,7 @@ rl.on("line", (line) => {
     case "add":
       enterKeyValue(null, null);
       break;
+
     case "remove":
       getAndRemove(keyList, line);
       break;
