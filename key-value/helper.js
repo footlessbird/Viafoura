@@ -25,7 +25,6 @@ module.exports = function (rl, kvs) {
               console.log(`No key entered`);
             }
           }
-          console.log(kvs);
         }
       );
     } else {
