@@ -29,7 +29,7 @@ function Comment({ user }: UserProps) {
   } = user[0];
   return (
     <>
-      <li className="comment-container">
+      <li data-testid="comment-container" className="comment-container">
         <div className="profile-image">
           <img src={profileImage} alt="profile image" />
         </div>
@@ -43,13 +43,13 @@ function Comment({ user }: UserProps) {
           <span className="replies">{replies}</span> REPLIES
           <span className="vote">
             <button>
-              <FontAwesomeIcon icon={faChevronUp} />
+              <FontAwesomeIcon className="updown-icon" icon={faChevronUp} />
               {upvotes}
             </button>
           </span>
           <span className="vote">
             <button>
-              <FontAwesomeIcon icon={faChevronDown} />
+              <FontAwesomeIcon className="updown-icon" icon={faChevronDown} />
               {downvotes}
             </button>
           </span>
